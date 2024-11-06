@@ -1,0 +1,51 @@
+<mat-sidenav-container fxFill>
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="(isHandset$ | async) === false">
+    <mat-toolbar fxLayoutAlign="center center">
+      <img src="assets/question.png" alt="Logo system icon" width="64px">
+    </mat-toolbar>
+
+    <mat-nav-list>
+      <div mat-subheader>General</div>
+      <a mat-list-item routerLink="/">
+        <mat-icon mat-list-icon>home</mat-icon>
+        <div mat-line>Home</div>
+      </a>
+
+      <div mat-subheader>Admin</div>
+      <a mat-list-item routerLink="question" routerLinkActive="active">
+        <mat-icon mat-list-icon>settings</mat-icon>
+        <div mat-line>Questions</div>
+      </a>
+      <a mat-list-item (click)="logout()">
+        <mat-icon mat-list-icon>exit_to_app</mat-icon>
+        <div mat-line>Logout</div>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="sidenav-content" fxLayout="column">
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>.:: Question ::.</span>
+
+      <div fxFlex fxLayoutAlign="end center">
+        <span>{{user}}</span>
+      </div>
+    </mat-toolbar>
+
+    <mat-card class="content" fxFlex>
+      <router-outlet></router-outlet>
+    </mat-card>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,26 @@
+services:
+  postgres:
+    image: postgres    
+    ports:
+      - 5433:5432
+    environment:      
+      - POSTGRES_DB=question
+      - POSTGRES_PASSWORD=123456
+  
+  core:
+    image: nicolaspimentel/questioncore    
+    ports:            
+      - 8000:8000
+    env_file:         
+      - question.conf
+    command: >-
+      /bin/sh -c "./wait-for-it.sh -t 60 postgres:5432 -- echo 'postgres is up'
+      && python -u manage.py migrate
+      && python -u production-server.py"
+    
+  web:             
+    image: nicolaspimentel/questionweb    
+    ports:            
+      - 80:80
+
+  

@@ -1,0 +1,13 @@
+.git/
+venv/
+env/
+*venv*
+node_modules/
+docs/
+pgdata/
+database-model/
+compose
+database-model
+html_coverage
+Dockerfile
+Dockerfile-dependencies

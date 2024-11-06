@@ -1,0 +1,15 @@
+[flake8]
+exclude=
+    .git,
+    __pycache__,
+    docs/source/conf.py,
+    old,
+    build,
+    dist,
+    */settings.py,
+    manage.py,
+    */migrations,
+    venv,
+    wait.py
+max-complexity=10
+max-line-length=119

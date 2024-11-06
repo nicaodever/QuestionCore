@@ -1,0 +1,54 @@
+<mat-card fxFlex>
+  <mat-card-header>
+    <mat-card-title>Choices</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="formGroup">
+      <div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="10px">
+        <div fxLayoutAlign="start center" fxLayoutGap="20px">
+          <mat-form-field fxFlex="20">
+            <mat-label>Choice text</mat-label>
+            <input matInput type="text" maxlength="100" formControlName="text" required>
+            <button mat-button *ngIf="v.text" matSuffix mat-icon-button (click)="reset()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <button mat-mini-fab type="button" color="accent" *ngIf="!_selectedObj" [disabled]="!v.text" (click)="addOrEdit()">
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-mini-fab type="button" color="primary" *ngIf="_selectedObj" [disabled]="!v.text" (click)="addOrEdit()">
+            <mat-icon>save</mat-icon>
+          </button>
+        </div>
+
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+          <ng-container matColumnDef="choice_text">
+            <mat-header-cell *matHeaderCellDef> Choice text</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.text}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef> Actions</mat-header-cell>
+            <mat-cell *matCellDef="let element" fxLayoutGap="10px">
+              <button mat-icon-button type="button" color="primary" (click)="addOrEdit(element)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button type="button" color="warn" (click)="delete(element)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" fxFlex fxLayoutAlign="start center">No records found</td>
+          </tr>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
